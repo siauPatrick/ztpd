@@ -44,6 +44,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 LOCAL_APPS = [
+    'apps.cases'
+    'apps.citizens'
 
 ]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -81,6 +83,9 @@ MIDDLEWARE = [
 # ------------------------------------------------------------------------------
 STATIC_ROOT = str(ROOT_DIR('staticfiles'))
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    str(APPS_DIR.path('static')),
+]
 
 # MEDIA
 # ------------------------------------------------------------------------------
