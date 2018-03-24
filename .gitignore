@@ -1,4 +1,7 @@
 .idea/
+.env
+staticfiles/
+*.db
 
 __pycache__/
 *.py[cod]
