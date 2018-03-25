@@ -1,7 +1,8 @@
 from django.db import models
+from model_utils import Choices
 
 
-class AnimalKind(models.Model):
+class Species(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self) -> str:
@@ -9,13 +10,13 @@ class AnimalKind(models.Model):
 
 
 class Citizen(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=150)
-    kind = models.ForeignKey(AnimalKind, on_delete=models.PROTECT, related_name='citizens')
+    GENDER = Choices('male', 'female')
+
+    name = models.CharField(max_length=150)
+    species = models.ForeignKey(Species, on_delete=models.PROTECT, related_name='citizens')
+    gender = models.CharField(choices=GENDER, max_length=6)
+    photo_url = models.URLField(max_length=400)
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.get_full_name()
-
-    def get_full_name(self) -> str:
-        return f'{self.first_name} {self.last_name}'.strip()
+        return self.name
