@@ -1,11 +1,12 @@
-from django.core.management.base import BaseCommand
-from django.conf import settings
+from typing import Set
 
 import requests
 from bs4 import BeautifulSoup
+from django.conf import settings
+from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
-from apps.citizens.models import Species, Citizen
+from apps.citizens.models import Citizen, Species
 
 
 class Command(BaseCommand):
@@ -17,7 +18,7 @@ class Command(BaseCommand):
         '/wiki/Hopps_family',
     }
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
         citizens = []
 
         for citizen_link in tqdm(self._collect_citizen_links(), disable=not settings.DEBUG):
@@ -28,7 +29,7 @@ class Command(BaseCommand):
 
         Citizen.objects.bulk_create(citizens)
 
-    def _collect_citizen_links(self):
+    def _collect_citizen_links(self) -> Set[str]:
         citizens_html = requests.get(f'{self.fandom_base_url}/wiki/List_of_Species_Seen_in_Zootopia').text
         citizens_soup = BeautifulSoup(citizens_html, 'html.parser')
         citizen_a_tags = citizens_soup.select('#mw-content-text li a[href^="/wiki/"]')
@@ -41,7 +42,7 @@ class Command(BaseCommand):
 
         return citizen_links - set(exist_citizen_links)
 
-    def _load_citizen(self, citizen_link):
+    def _load_citizen(self, citizen_link: str) -> Citizen:
         citizen_html = requests.get(citizen_link).text
         citizen_soup = BeautifulSoup(citizen_html, 'html.parser')
         species_el = citizen_soup.find(text='Species')
