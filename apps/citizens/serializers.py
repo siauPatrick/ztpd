@@ -6,4 +6,4 @@ from .models import Citizen
 class CitizenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Citizen
-        fields = ('name', 'species', 'gender', 'photo_url', 'creation_date')
+        fields = ('name', 'species', 'gender', 'photo_url', 'fandom_url', 'creation_date')

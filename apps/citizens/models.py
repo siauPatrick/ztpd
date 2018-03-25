@@ -16,6 +16,7 @@ class Citizen(models.Model):
     species = models.ForeignKey(Species, on_delete=models.PROTECT, related_name='citizens')
     gender = models.CharField(choices=GENDER, max_length=6)
     photo_url = models.URLField(max_length=400)
+    fandom_url = models.URLField(max_length=400)
     creation_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
