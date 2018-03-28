@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import RedirectView, TemplateView
 
-from apps.citizens.views import CitizenListAPIView
+from citizens.views import CitizenListAPIView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),

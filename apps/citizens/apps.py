@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class CitizensConfig(AppConfig):
-    name = 'apps.citizens'
+    name = 'citizens'
     verbose_name = 'Citizens'

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from tqdm import tqdm
 
-from apps.citizens.models import Citizen, Species
+from citizens.models import Citizen, Species
 
 
 class Command(BaseCommand):
